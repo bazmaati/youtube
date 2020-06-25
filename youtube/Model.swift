@@ -8,10 +8,17 @@
 
 import Foundation
 
+protocol ModelDelegate {
+    
+    func videosFetched(_ videos:[Video])
+}
+
 class Model {
     
+    var delegate:ModelDelegate?
+    
     func getVideos () {
-        
+   
         // get a url object
         let url = URL(string: Constants.API_URL)
         
@@ -42,6 +49,17 @@ class Model {
                 
                 // already checked it's not nil, so can unwrap
                 let response = try decoder.decode(Response.self, from: data!)
+                
+                if response.items != nil {
+                    
+                    // throw the data from background threading to the front
+                    DispatchQueue.main.async {
+                        // call the "videosReturnedDelegate" method of the delegate
+                        self.delegate?.videosFetched(response.items!)
+                    }
+                    
+                
+                }
                 
                 dump(response)
                 
