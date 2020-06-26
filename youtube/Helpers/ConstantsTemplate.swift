@@ -7,7 +7,7 @@
 //
 
 
- 
+/*
 import Foundation
 
 struct Constants {
@@ -19,6 +19,8 @@ struct Constants {
     static var VIDEOCELL_ID = "VideoCell"
     
 }
+ 
+ */
 
 
 
